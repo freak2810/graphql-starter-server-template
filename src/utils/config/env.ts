@@ -11,14 +11,14 @@ export const env = {
 /**
  * Validates the environment variables and throws an error if any are missing.
  */
-export const validateEnv = () => {
+(() => {
   const envVariables = Object.keys(env);
 
   envVariables.forEach((envVariable) => {
     // @ts-expect-error
-    if (env[envVariable]) throw new Error(`Environment variable ${envVariable} is missing!`);
+    if (!env[envVariable]) throw new Error(`Environment variable ${envVariable} is missing!`);
   });
-};
+})();
 
 export const testMongoConfig = {
   Memory: true,
