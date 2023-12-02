@@ -9,30 +9,32 @@ export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
+export type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> = { [_ in K]?: never };
+export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
-  ID: string;
-  String: string;
-  Boolean: boolean;
-  Int: number;
-  Float: number;
+  ID: { input: string; output: string; }
+  String: { input: string; output: string; }
+  Boolean: { input: boolean; output: boolean; }
+  Int: { input: number; output: number; }
+  Float: { input: number; output: number; }
   /** JavaScript Date instances and timestamps (represented as 32-bit signed integers) are coerced to RFC 3339 compliant date-time strings. Invalid Date instances raise a field error. */
-  DateTime: Date;
+  DateTime: { input: Date; output: Date; }
   /** A field whose value conforms to the standard internet email address format as specified in {@link https://html.spec.whatwg.org/multipage/input.html#valid-e-mail-address HTML Spec}. */
-  Email: string;
+  Email: { input: string; output: string; }
   /** The JSON scalar type represents JSON values as specified by {@link http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf ECMA-404}. */
-  JSON: Record<string | number, any>;
+  JSON: { input: Record<string | number, any>; output: Record<string | number, any>; }
   /** A field whose value conforms to the standard Phone number format (based on Google's Phone Number Library) format. The very powerful {@link https://github.com/googlei18n/libphonenumber libphonenumber } library is available to take that format, parse and display it in whatever display format you want. It can also be used to parse user input and get the E.164 format to pass into a schema. */
-  PhoneNumber: PhoneNumber;
+  PhoneNumber: { input: PhoneNumber; output: PhoneNumber; }
   /** A field whose value conforms to the Postal Code of the Address component */
-  PostalCode: string;
+  PostalCode: { input: string; output: string; }
   /** A field whose value conforms to the standard URL format as specified in {@link https://www.ietf.org/rfc/rfc3986.txt RFC3986}, and it uses real JavaScript URL objects. */
-  URL: URL;
+  URL: { input: URL; output: URL; }
 };
 
 export type Query = {
   __typename?: 'Query';
-  hello: Scalars['String'];
+  hello: Scalars['String']['output'];
 };
 
 export type Role =
@@ -40,8 +42,8 @@ export type Role =
   | 'USER';
 
 export type AdditionalEntityFields = {
-  path?: InputMaybe<Scalars['String']>;
-  type?: InputMaybe<Scalars['String']>;
+  path?: InputMaybe<Scalars['String']['input']>;
+  type?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -115,33 +117,33 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
-  DateTime: ResolverTypeWrapper<Scalars['DateTime']>;
-  Email: ResolverTypeWrapper<Scalars['Email']>;
-  JSON: ResolverTypeWrapper<Scalars['JSON']>;
-  PhoneNumber: ResolverTypeWrapper<Scalars['PhoneNumber']>;
-  PostalCode: ResolverTypeWrapper<Scalars['PostalCode']>;
+  DateTime: ResolverTypeWrapper<Scalars['DateTime']['output']>;
+  Email: ResolverTypeWrapper<Scalars['Email']['output']>;
+  JSON: ResolverTypeWrapper<Scalars['JSON']['output']>;
+  PhoneNumber: ResolverTypeWrapper<Scalars['PhoneNumber']['output']>;
+  PostalCode: ResolverTypeWrapper<Scalars['PostalCode']['output']>;
   Query: ResolverTypeWrapper<{}>;
-  String: ResolverTypeWrapper<Scalars['String']>;
+  String: ResolverTypeWrapper<Scalars['String']['output']>;
   Role: Role;
-  URL: ResolverTypeWrapper<Scalars['URL']>;
+  URL: ResolverTypeWrapper<Scalars['URL']['output']>;
   AdditionalEntityFields: AdditionalEntityFields;
-  Int: ResolverTypeWrapper<Scalars['Int']>;
-  Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
+  Int: ResolverTypeWrapper<Scalars['Int']['output']>;
+  Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
-  DateTime: Scalars['DateTime'];
-  Email: Scalars['Email'];
-  JSON: Scalars['JSON'];
-  PhoneNumber: Scalars['PhoneNumber'];
-  PostalCode: Scalars['PostalCode'];
+  DateTime: Scalars['DateTime']['output'];
+  Email: Scalars['Email']['output'];
+  JSON: Scalars['JSON']['output'];
+  PhoneNumber: Scalars['PhoneNumber']['output'];
+  PostalCode: Scalars['PostalCode']['output'];
   Query: {};
-  String: Scalars['String'];
-  URL: Scalars['URL'];
+  String: Scalars['String']['output'];
+  URL: Scalars['URL']['output'];
   AdditionalEntityFields: AdditionalEntityFields;
-  Int: Scalars['Int'];
-  Boolean: Scalars['Boolean'];
+  Int: Scalars['Int']['output'];
+  Boolean: Scalars['Boolean']['output'];
 };
 
 export type AuthDirectiveArgs = {
@@ -151,7 +153,7 @@ export type AuthDirectiveArgs = {
 export type AuthDirectiveResolver<Result, Parent, ContextType = Context, Args = AuthDirectiveArgs> = DirectiveResolverFn<Result, Parent, ContextType, Args>;
 
 export type ColumnDirectiveArgs = {
-  overrideType?: Maybe<Scalars['String']>;
+  overrideType?: Maybe<Scalars['String']['input']>;
 };
 
 export type ColumnDirectiveResolver<Result, Parent, ContextType = Context, Args = ColumnDirectiveArgs> = DirectiveResolverFn<Result, Parent, ContextType, Args>;
@@ -169,46 +171,46 @@ export type IdDirectiveArgs = { };
 export type IdDirectiveResolver<Result, Parent, ContextType = Context, Args = IdDirectiveArgs> = DirectiveResolverFn<Result, Parent, ContextType, Args>;
 
 export type ValidationDirectiveArgs = {
-  default?: Maybe<Scalars['String']>;
-  max?: Maybe<Scalars['Int']>;
-  min?: Maybe<Scalars['Int']>;
-  pattern?: Maybe<Scalars['String']>;
-  requiredMessage?: Maybe<Scalars['String']>;
-  trim?: Maybe<Scalars['Boolean']>;
-  typeOf?: Maybe<Scalars['String']>;
+  default?: Maybe<Scalars['String']['input']>;
+  max?: Maybe<Scalars['Int']['input']>;
+  min?: Maybe<Scalars['Int']['input']>;
+  pattern?: Maybe<Scalars['String']['input']>;
+  requiredMessage?: Maybe<Scalars['String']['input']>;
+  trim?: Maybe<Scalars['Boolean']['input']>;
+  typeOf?: Maybe<Scalars['String']['input']>;
 };
 
 export type ValidationDirectiveResolver<Result, Parent, ContextType = Context, Args = ValidationDirectiveArgs> = DirectiveResolverFn<Result, Parent, ContextType, Args>;
 
 export type UnionDirectiveArgs = {
-  discriminatorField?: Maybe<Scalars['String']>;
+  discriminatorField?: Maybe<Scalars['String']['input']>;
   additionalFields?: Maybe<Array<Maybe<AdditionalEntityFields>>>;
 };
 
 export type UnionDirectiveResolver<Result, Parent, ContextType = Context, Args = UnionDirectiveArgs> = DirectiveResolverFn<Result, Parent, ContextType, Args>;
 
 export type AbstractEntityDirectiveArgs = {
-  discriminatorField: Scalars['String'];
+  discriminatorField: Scalars['String']['input'];
   additionalFields?: Maybe<Array<Maybe<AdditionalEntityFields>>>;
 };
 
 export type AbstractEntityDirectiveResolver<Result, Parent, ContextType = Context, Args = AbstractEntityDirectiveArgs> = DirectiveResolverFn<Result, Parent, ContextType, Args>;
 
 export type EntityDirectiveArgs = {
-  embedded?: Maybe<Scalars['Boolean']>;
+  embedded?: Maybe<Scalars['Boolean']['input']>;
   additionalFields?: Maybe<Array<Maybe<AdditionalEntityFields>>>;
 };
 
 export type EntityDirectiveResolver<Result, Parent, ContextType = Context, Args = EntityDirectiveArgs> = DirectiveResolverFn<Result, Parent, ContextType, Args>;
 
 export type LinkDirectiveArgs = {
-  overrideType?: Maybe<Scalars['String']>;
+  overrideType?: Maybe<Scalars['String']['input']>;
 };
 
 export type LinkDirectiveResolver<Result, Parent, ContextType = Context, Args = LinkDirectiveArgs> = DirectiveResolverFn<Result, Parent, ContextType, Args>;
 
 export type MapDirectiveArgs = {
-  path: Scalars['String'];
+  path: Scalars['String']['input'];
 };
 
 export type MapDirectiveResolver<Result, Parent, ContextType = Context, Args = MapDirectiveArgs> = DirectiveResolverFn<Result, Parent, ContextType, Args>;
@@ -279,7 +281,7 @@ export const definedNonNullAnySchema = z.any().refine((v) => isDefinedNonNullAny
 export const RoleSchema = z.enum(['ADMIN', 'USER']);
 
 export function AdditionalEntityFieldsSchema(): z.ZodObject<Properties<AdditionalEntityFields>> {
-  return z.object<Properties<AdditionalEntityFields>>({
+  return z.object({
     path: z.string().nullish(),
     type: z.string().nullish()
   })
