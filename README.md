@@ -5,7 +5,7 @@ This is a starter template containing all the required tools to build a backend 
 ## Getting Started
 
 ```
-git clone https://github.com/freak2810/graphql-starter-template.git
+git clone https://github.com/freak2810/graphql-starter-server-template.git
 ```
 
 ## Built with
@@ -15,11 +15,10 @@ git clone https://github.com/freak2810/graphql-starter-template.git
 - [GraphQL](https://graphql.org/)
 - [Apollo Server + Federation](https://www.apollographql.com/docs/apollo-server/)
 - [MongoDB](https://www.mongodb.com/)
-- [Serverless](https://www.serverless.com/framework/docs)
 
 ## Features
 
-- ✅ Supports both server and serverless deployments
+- ✅ Supports both server deployments
 - ✅ ESLint + Prettier
 - ✅ GraphQL API
 - ✅ Apollo Federation
@@ -29,7 +28,7 @@ git clone https://github.com/freak2810/graphql-starter-template.git
 
 <br/>
 
-## Updates
+<!-- ## Updates
 
 ### 17th April, 2023
 
@@ -55,7 +54,7 @@ git clone https://github.com/freak2810/graphql-starter-template.git
 - The database is directly takes from the uri provided in the environment variables.
 - Removed globals.d.ts file.
 - Changed the type of URL from string to URL.
-- Updated packages.
+- Updated packages. -->
 
 ## Author
 
