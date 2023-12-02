@@ -2,7 +2,7 @@
 import { MongoClient } from 'mongodb';
 import { MongoMemoryServer } from 'mongodb-memory-server';
 
-import { env, testMongoConfig } from '../src/utils/config/env';
+import { testMongoConfig } from '../src/utils/config/env';
 
 export = async function globalSetup() {
   if (testMongoConfig.Memory) {
@@ -20,6 +20,6 @@ export = async function globalSetup() {
 
   // The following is to make sure the database is clean before an test starts
   await client.connect();
-  await client.db(env.DB_NAME).dropDatabase();
+  await client.db().dropDatabase();
   await client.close();
 };

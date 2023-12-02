@@ -1,11 +1,12 @@
 import chalk from 'chalk';
 import { MongoClient } from 'mongodb';
-import { MongoMemoryServer } from 'mongodb-memory-server';
 
 import { env } from '../config/env';
 
 export const startMongoTestServer = async () => {
   if (process.env.NODE_ENV !== 'testing') return;
+  // eslint-disable-next-line import/no-extraneous-dependencies
+  const { MongoMemoryServer } = await import('mongodb-memory-server');
 
   const mongod = await MongoMemoryServer.create();
 

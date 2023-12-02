@@ -86,6 +86,7 @@ module.exports = {
     ],
     'unicorn/no-null': 'off',
     'unicorn/prefer-node-protocol': 'off',
+    'unicorn/no-array-for-each': 'off',
 
     'no-console': ['error', { allow: ['error', 'log'] }],
     'no-underscore-dangle': ['error', { allow: ['_id'] }],
