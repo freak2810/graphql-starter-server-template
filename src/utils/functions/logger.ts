@@ -2,6 +2,7 @@ import { GraphQLRequest } from '@apollo/server';
 import chalk from 'chalk';
 import { ZodError } from 'zod';
 
+import { env } from '../config/env';
 import { ApolloError, UserInputError } from './errors';
 
 export type BaseContext = Record<string, any>;
@@ -20,9 +21,9 @@ export const errorLogger = (error: unknown): ApolloError => {
         JSON.stringify(
           error.issues.map((zodError) => zodError.message),
           null,
-          2
-        )
-      )
+          2,
+        ),
+      ),
     );
 
     return new UserInputError('Invalid input', error.issues);
@@ -33,6 +34,8 @@ export const errorLogger = (error: unknown): ApolloError => {
 };
 
 export const logger = (query?: string, request?: GraphQLRequest) => {
+  if (env.NODE_ENV === 'development') return;
+
   console.log(`Query: ${query}
 Request: ${JSON.stringify(request, null, 2)}`);
 };

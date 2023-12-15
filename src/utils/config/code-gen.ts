@@ -10,7 +10,6 @@ const config: CodegenConfig = {
         'typescript-resolvers',
         'typescript-validation-schema',
         'typescript-mongodb',
-        'jsdoc',
         {
           add: {
             content: [
